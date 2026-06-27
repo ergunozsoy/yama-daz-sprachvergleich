@@ -33,7 +33,12 @@ th,td{{border:1px solid #dcdcdc;padding:2mm 3mm;text-align:left;vertical-align:t
 th{{background:#f3f6f3;color:{GREEN};font-family:'Georgia',serif}}
 td.de{{background:#fbfdfb}} td.tr{{background:#fdfbf6}}
 .ex{{font-family:'Consolas','Courier New',monospace}}
-.err{{color:#b3261e;text-decoration:line-through}} .ok{{color:{GREEN};font-weight:600}}
+.trk{{font-family:'Consolas','Courier New',monospace;font-style:italic;color:#9a6a12;font-weight:600}}
+td.de .ex{{color:#16407a}}
+td.tr .ex{{color:#9a6a12;font-style:italic}}
+.err{{color:#b3261e;text-decoration:line-through}} .err::before{{content:"\\2717 ";text-decoration:none;font-weight:700}}
+.ok{{color:{GREEN};font-weight:600}} .ok::before{{content:"\\2713 ";font-weight:700}}
+.tag.typ.il{{background:#f6efe1;color:#8a6b22;border-color:#e6d4a6}} .tag.typ.al{{background:#eef1f6;color:#3a4a66;border-color:#cdd6e6}}
 .tag{{display:inline-block;font-size:8pt;padding:1px 7px;border-radius:10px;background:#eef3ee;color:{GREEN};border:1px solid #cfe0cf}}
 .tag.cat{{background:#f6efe1;color:#8a6b22;border-color:#e6d4a6}}
 ul,ul.li{{margin:1mm 0 1mm 5mm;padding:0}} li{{margin:1mm 0}}
@@ -61,8 +66,8 @@ def topic_pdf(tid, d):
            f'<h1>{d["titel"]}</h1><p class="lead">{d["lead"]}</p>']
     for i,b in enumerate(d["blocks"]):
         parts.append(f'<div class="block"><h2><span class="num">{i+1}</span>{C.BLOCKNAMES[i]}</h2>{b}</div>')
-    parts.append(f'<div class="foot"><b>Theoretischer Rahmen:</b> Lernersprache-/Interlanguage-Hypothese '
-                 f'&ndash; <i>systematisch</i> vs. <i>interferenzbedingt</i>; Fehlerkategorien n. Thom&eacute; (1987). '
+    parts.append(f'<div class="foot">Lernerformen nach Ursache: <i>intralingual</i> (systematisch) vs. '
+                 f'<i>interlingual</i> (aus der L1). Quellen: siehe Literatur-Seite. '
                  f'&middot; Stand: {DATE} &middot; Konzept &amp; Inhalt: Dr. Ergun &Ouml;zsoy, LMU M&uuml;nchen.</div>')
     render(f"{OUT}/themen/{tid}.pdf", "".join(parts))
 
@@ -102,7 +107,7 @@ worksheet(f"{OUT}/arbeitsblaetter/ab_auslautverhaertung.pdf",
    <tr><td class="ex">der Hunt</td><td class="line"></td></tr><tr><td class="ex">am Tak</td><td class="line"></td></tr>
    <tr><td class="ex">das Kint</td><td class="line"></td></tr><tr><td class="ex">der Berk</td><td class="line"></td></tr></table>"""},
   {"typ":"Kontrastiv","titel":"Br&uuml;cke zum T&uuml;rkischen","html":"""
-   <p>Im T&uuml;rkischen wechselt der Laut auch &ndash; aber man <i>schreibt</i> ihn: <span class="ex">kitap &ndash; kitab&#305;</span>. Erg&auml;nze und markiere, wo Deutsch das Graphem <b>beh&auml;lt</b>:</p>
+   <p>Im T&uuml;rkischen wechselt der Laut auch &ndash; aber man <i>schreibt</i> ihn: <span class="trk">kitap &ndash; kitab&#305;</span>. Erg&auml;nze und markiere, wo Deutsch das Graphem <b>beh&auml;lt</b>:</p>
    <p class="ex">Tag &ndash; Ta__e &nbsp;|&nbsp; Hund &ndash; Hun__e &nbsp;|&nbsp; lieb &ndash; lie__er</p>"""}],
  """<ul><li><b>A1:</b> Hun<b>d</b> &middot; Ta<b>g</b> &middot; lie<b>b</b> &middot; Kor<b>b</b> &middot; Zu<b>g</b>.</li>
     <li><b>A2:</b> Hund &middot; Tag &middot; Kind &middot; Berg.</li>
@@ -127,9 +132,9 @@ worksheet(f"{OUT}/arbeitsblaetter/ab_genus-artikel.pdf",
   {"typ":"Kontrastiv","titel":"Bestimmtheit: T&uuml;rkisch &harr; Deutsch","html":"""
    <p>Im T&uuml;rkischen zeigt <span class="ex">-i</span> ein <b>bestimmtes</b> Objekt. Erg&auml;nze den deutschen Artikel:</p>
    <table><tr><th>T&uuml;rkisch</th><th>Deutsch</th></tr>
-   <tr><td class="ex">Kitab&#305; okuyorum.</td><td>Ich lese ____ Buch.</td></tr>
-   <tr><td class="ex">Bir kitap okuyorum.</td><td>Ich lese ____ Buch.</td></tr>
-   <tr><td class="ex">Adam&#305; g&ouml;r&uuml;yorum.</td><td>Ich sehe ____ Mann.</td></tr></table>"""}],
+   <tr><td class="trk">Kitab&#305; okuyorum.</td><td>Ich lese ____ Buch.</td></tr>
+   <tr><td class="trk">Bir kitap okuyorum.</td><td>Ich lese ____ Buch.</td></tr>
+   <tr><td class="trk">Adam&#305; g&ouml;r&uuml;yorum.</td><td>Ich sehe ____ Mann.</td></tr></table>"""}],
  """<ul><li><b>A1:</b> die Zeitung &middot; das M&auml;dchen &middot; die Freiheit &middot; der Lehrer &middot; die Nation &middot; das Dokument &middot; die Freundschaft &middot; der Sommer.</li>
     <li><b>A2:</b> Ich sehe <b>einen</b> Mann. &middot; <b>Das</b> M&auml;dchen lacht. &middot; Ich brauche <b>ein</b> Buch.</li>
     <li><b>A3:</b> <b>das</b> Buch &middot; <b>ein</b> Buch &middot; <b>den</b> Mann.</li>
@@ -159,7 +164,7 @@ worksheet(f"{OUT}/arbeitsblaetter/ab_wortstellung.pdf",
 
 worksheet(f"{OUT}/arbeitsblaetter/ab_praepositionen.pdf",
  {"modul":"Pr&auml;positionen","titel":"Pr&auml;positionen &amp; Kasus","niveau":"A2&ndash;B1","ziel":"Wechselpr&auml;positionen (wohin?/wo?), Suffix &harr; Pr&auml;position"},
- "Das T&uuml;rkische h&auml;ngt ein <b>Suffix</b> ans Nomen (<span class='ex'>ev-de</span> = im Haus). Das Deutsche stellt eine <b>Pr&auml;position davor</b> &ndash; mit festem Kasus.",
+ "Das T&uuml;rkische h&auml;ngt ein <b>Suffix</b> ans Nomen (<span class='trk'>ev-de</span> = im Haus). Das Deutsche stellt eine <b>Pr&auml;position davor</b> &ndash; mit festem Kasus.",
  [{"typ":"wohin? / wo?","titel":"Akkusativ oder Dativ?","html":"""
    <p>Wechselpr&auml;position: <b>wohin?</b> &rarr; Akkusativ, <b>wo?</b> &rarr; Dativ.</p>
    <table><tr><th>Satz</th><th>Akk / Dat?</th></tr>
@@ -168,9 +173,9 @@ worksheet(f"{OUT}/arbeitsblaetter/ab_praepositionen.pdf",
    <tr><td class="ex">Das Bild h&auml;ngt an ___ Wand. (wo?)</td><td class="line"></td></tr></table>"""},
   {"typ":"Suffix &harr; Pr&auml;position","titel":"&Uuml;bersetze die Relation","html":"""
    <table><tr><th>T&uuml;rkisch</th><th>Deutsch</th></tr>
-   <tr><td class="ex">ev-de</td><td>____ Haus (wo?)</td></tr>
-   <tr><td class="ex">ev-e</td><td>____ Haus (wohin?)</td></tr>
-   <tr><td class="ex">ev-den</td><td>____ Haus (woher?)</td></tr></table>"""},
+   <tr><td class="trk">ev-de</td><td>____ Haus (wo?)</td></tr>
+   <tr><td class="trk">ev-e</td><td>____ Haus (wohin?)</td></tr>
+   <tr><td class="trk">ev-den</td><td>____ Haus (woher?)</td></tr></table>"""},
   {"typ":"Rektion","titel":"Fester Kasus","html":"""
    <table><tr><th>Lernersatz</th><th>richtig</th></tr>
    <tr><td class="ex">mit der Auto</td><td class="line"></td></tr>

@@ -17,6 +17,10 @@
   a{color:var(--green-d);text-decoration:none} a:hover{text-decoration:underline}
   h1,h2,h3,h4{font-family:var(--serif);color:var(--green);line-height:1.25;margin:0}
   code,.ex{font-family:var(--mono);font-size:.92em}
+  /* Türkische Tokens klar markiert: kursiv + warme Farbe; deutsche Beispiele kühl */
+  .trk{font-family:var(--mono);font-size:.92em;font-style:italic;color:#9a6a12;font-weight:600}
+  td.de .ex{color:#16407a}
+  td.tr .ex{color:#9a6a12;font-style:italic}
   .wrap{display:grid;grid-template-columns:288px 1fr;min-height:100vh}
 
   aside{background:#fff;border-right:1px solid var(--line);position:sticky;top:0;height:100vh;overflow:auto;padding:22px 18px}
@@ -78,7 +82,8 @@
   th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
   th{background:#f2f6f2;color:var(--green);font-family:var(--serif);font-weight:600}
   td.de{background:#fbfdfb} td.tr{background:#fdfbf6}
-  .err{color:var(--red);text-decoration:line-through} .ok{color:var(--green);font-weight:600}
+  .err{color:var(--red);text-decoration:line-through} .err::before{content:"\2717 ";text-decoration:none;font-weight:700} .ok{color:var(--green);font-weight:600} .ok::before{content:"\2713 ";font-weight:700}
+  .tag.typ{font-size:10px} .tag.typ.il{background:#f6efe1;color:#8a6b22;border:1px solid #e6d4a6} .tag.typ.al{background:#eef1f6;color:#3a4a66;border:1px solid #cdd6e6}
   .tag{display:inline-block;font-size:11px;padding:2px 9px;border-radius:11px;background:#eef3ee;color:var(--green-d);border:1px solid #cfe0cf}
   .tag.cat{background:#f6efe1;color:#8a6b22;border-color:#e6d4a6}
   .note{font-size:13px;color:var(--muted);font-style:italic}
@@ -119,7 +124,7 @@
         sprachvergleichende Analyse mit diagnostischer Lehrkompetenz – jeder Befund wird zur
         Interferenzanalyse, zum Förderweg und zur interkulturellen Ressource weitergeführt.</p>
         <div class="tags"><span>Sprachvergleich</span><span>DaZ-Didaktik</span>
-          <span>Interferenzanalyse (Thomé)</span><span>Mehrsprachigkeit als Ressource</span>
+          <span>Interferenzanalyse (interlingual/intralingual)</span><span>Mehrsprachigkeit als Ressource</span>
           <span>PDF-Dossiers · Arbeitsblätter · Literatur</span></div>
       </div>
 
@@ -127,13 +132,13 @@
       <div class="principles">
         <div class="pcard"><b>1 · Kontrastiver Befund</b><small>DE und TR Struktur nebeneinander.</small></div>
         <div class="pcard"><b>2 · Didaktik &amp; DaZ</b><small>Warum &amp; wann es im Unterricht zählt.</small></div>
-        <div class="pcard"><b>3 · Interferenz</b><small>Fehler · L1-Quelle · Kategorie n. Thomé.</small></div>
+        <div class="pcard"><b>3 · Interferenz</b><small>Lernerform · Ursache · Typ (interlingual/intralingual).</small></div>
         <div class="pcard"><b>4 · Korrektur</b><small>Konkrete Förder- und Korrekturwege.</small></div>
         <div class="pcard"><b>5 · Interkulturalität</b><small>Mehrsprachigkeit als Ressource.</small></div>
       </div>
-      <p class="note">Theoretischer Rahmen: <b>Lernersprache-/Interlanguage-Hypothese</b>
-        (nicht die widerlegte Kontrastivhypothese) – Fehler werden in <i>systematisch</i> vs.
-        <i>interferenzbedingt</i> unterschieden.</p>
+      <p class="note">Lernverständnis: Fehler werden als <i>lernersprachliche</i> Phänomene aufgefasst und nach ihrer Ursache unterschieden –
+        <b>intralingual</b> (systematisch, im Deutschen selbst angelegt) vs. <b>interlingual</b> (interferenzbedingt, aus der L1).
+        Der kontrastive Vergleich dient dabei der <b>Diagnose</b>, nicht der bloßen Fehlerprognose.</p>
 
       <h2 class="sec-h">Themen</h2>
       <div class="grid" id="cards"></div>
@@ -214,9 +219,8 @@ function openTopic(id){
     `<span class="back" onclick="home()">← zurück zur Übersicht</span>
      <div class="d-head"><div class="m">${d.modul}</div><h1>${d.titel}</h1></div>
      <p class="lead">${d.lead}</p>${dl}${blocks}
-     <div class="frame"><b>Theoretischer Rahmen:</b> Lernersprache-/Interlanguage-Hypothese –
-       <i>systematisch</i> vs. <i>interferenzbedingt</i>; Fehlerkategorien n. Thomé (1987).
-       Konzept &amp; Inhalt: Dr. Ergun Özsoy, LMU München.</div>`;
+     <div class="frame">Lernerformen werden nach Ursache eingeordnet: <i>intralingual</i> (systematisch) vs. <i>interlingual</i> (aus der L1).
+       Quellen siehe <a onclick="showLit()">Literatur</a>. · Konzept &amp; Inhalt: Dr. Ergun Özsoy, LMU München.</div>`;
   show('detail');
 }
 function showLit(){
@@ -242,9 +246,8 @@ function filter(v){
   document.querySelectorAll('#cards .tcard').forEach(c=>c.style.display=c.dataset.name.includes(v)?'':'none');
 }
 document.getElementById('hfoot').innerHTML =
-  `Inhalte aus den ALM-260-Materialien (Dr. Ergun Özsoy). Theoretische Quellen (Buchberger/KALiPho, `+
-  `Balcı, Johanson/Csató, Ersen-Rasch, Rehbein u.&nbsp;a.) dienen als Referenz. `+
-  `Konzept &amp; alle Rechte: <b>Dr. Ergun Özsoy</b>, LMU München.`;
+  `Konzept, Inhalt &amp; alle Rechte: <b>Dr. Ergun Özsoy</b>, LMU München · ALM 260. `+
+  `Verwendete Quellen ausschließlich auf der Seite <a onclick="showLit()">Literatur</a>.`;
 buildNav(); buildCards(); buildSheets();
 </script>
 </body>
