@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Einzige Inhaltsquelle für Plattform + PDFs.
-Sprachvergleich Deutsch–Türkisch · DaZ · Dr. Ergun Özsoy, LMU München (ALM 260).
+Sprachvergleich Deutsch–Türkisch · DaZ · Dr. Ergun Özsoy, LMU München.
 Konvention: türkische Tokens stehen in <span class="trk"> (kursiv, eigene Farbe),
 deutsche/neutrale Beispiele in <span class="ex">. Quellen ausschließlich auf der
 Literatur-Seite – im Inhalt keine Zitate/Quellenkürzel.

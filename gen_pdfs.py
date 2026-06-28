@@ -16,7 +16,7 @@ DATE=datetime.date.today().strftime("%d.%m.%Y")
 CSS=f"""
 @page {{ size:A4; margin:20mm 18mm 22mm 18mm;
   @top-left {{ content:"Kontrastive Linguistik DE \\2194 TR"; font:8pt 'Georgia',serif; color:#888; }}
-  @top-right {{ content:"ALM 260 \\00B7 LMU M\\00FCnchen"; font:8pt 'Georgia',serif; color:#888; }}
+  @top-right {{ content:"Dr. Ergun \\00D6zsoy \\00B7 LMU M\\00FCnchen"; font:8pt 'Georgia',serif; color:#888; }}
   @bottom-left {{ content:"\\00A9 Dr. Ergun \\00D6zsoy \\2013 alle Rechte vorbehalten"; font:8pt sans-serif; color:#999; }}
   @bottom-right {{ content:"Seite " counter(page) " / " counter(pages); font:8pt sans-serif; color:#999; }} }}
 *{{box-sizing:border-box}}
@@ -62,7 +62,7 @@ def render(path, inner, gold=False):
 
 # ---- Themen-Dossiers ------------------------------------------------------
 def topic_pdf(tid, d):
-    parts=[f'<div class="kicker">{d["modul"]} &middot; ALM 260 Sprachvergleich</div>'
+    parts=[f'<div class="kicker">{d["modul"]} &middot; Sprachvergleich</div>'
            f'<h1>{d["titel"]}</h1><p class="lead">{d["lead"]}</p>']
     for i,b in enumerate(d["blocks"]):
         parts.append(f'<div class="block"><h2><span class="num">{i+1}</span>{C.BLOCKNAMES[i]}</h2>{b}</div>')
