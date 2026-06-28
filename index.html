@@ -35,7 +35,12 @@
   .navtop a{display:flex;gap:8px;align-items:center;padding:8px 9px;border-radius:8px;font-size:14px;font-weight:600;color:var(--green-d);cursor:pointer}
   .navtop a:hover{background:#e9f3ec;text-decoration:none}
   .mod{margin-top:14px}
-  .mod>span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 6px 6px}
+  .mhead{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;background:none;border:0;cursor:pointer;padding:3px 6px;margin:0 0 6px 0;text-align:left;border-radius:6px;font-family:inherit}
+  .mhead:hover{background:var(--bg)}
+  .mhead .mtitle{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .mhead .chev{color:var(--gold);font-size:10px;transition:transform .2s;flex:none}
+  .mod.collapsed .chev{transform:rotate(-90deg)}
+  .mod.collapsed .nav{display:none}
   .nav a{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 9px;border-radius:8px;color:var(--ink);font-size:14px;cursor:pointer}
   .nav a:hover{background:var(--bg);text-decoration:none}
   .nav a.active{background:#e9f3ec;color:var(--green-d);font-weight:600}
@@ -173,11 +178,12 @@ function el(h){const d=document.createElement('div');d.innerHTML=h.trim();return
 function buildNav(){
   const nav=document.getElementById('nav');
   MODULES.forEach(m=>{
-    const box=el(`<div class="mod"><span>${m.name}</span><div class="nav"></div></div>`);
+    const box=el(`<div class="mod"><button type="button" class="mhead"><span class="mtitle">${m.name}</span><span class="chev">\u25be</span></button><div class="nav"></div></div>`);
     const list=box.querySelector('.nav');
+    box.querySelector('.mhead').onclick=()=>box.classList.toggle('collapsed');
     m.topics.forEach(t=>{
-      const a=el(`<a data-id="${t.id}" data-name="${t.t.toLowerCase()}"><span>${t.t}</span>
-        <span class="pill ${t.s}">${t.s==='ready'?'fertig':'in Vorb.'}</span></a>`);
+      const pill=t.s==='ready'?'':`<span class="pill ${t.s}">in Vorb.</span>`;
+      const a=el(`<a data-id="${t.id}" data-name="${t.t.toLowerCase()}"><span>${t.t}</span>${pill}</a>`);
       if(t.s==='ready') a.onclick=()=>openTopic(t.id);
       list.appendChild(a);
     });
@@ -242,6 +248,7 @@ function showLit(){
 }
 function filter(v){
   v=v.toLowerCase();
+  if(v) document.querySelectorAll('.mod').forEach(m=>m.classList.remove('collapsed'));
   document.querySelectorAll('#nav a').forEach(a=>a.style.display=a.dataset.name.includes(v)?'':'none');
   document.querySelectorAll('#cards .tcard').forEach(c=>c.style.display=c.dataset.name.includes(v)?'':'none');
 }
